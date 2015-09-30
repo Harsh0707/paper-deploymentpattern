@@ -88,7 +88,6 @@ The implementation of Packer will be a very simple one (compared to things I've 
           "CostCenter": "{{user `costcenter`}}",
           "Owner": "{{user `owner`}}",
           "Division": "{{user `division`}}",
-
           "author": "{{user `user_name`}}",
           "test_ami": "{{user `test_ami_flag`}}",
           "packer": "true",
