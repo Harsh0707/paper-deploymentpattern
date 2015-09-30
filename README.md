@@ -20,3 +20,18 @@ This process is slow, and requiring manual steps is not ideal.
 The second process involved using a server image (AMI) and spinning up an EC2 instance. This process is faster, but isn’t without problems: building the server image is slow, and there are no checks in place to test the image before use. Additionally, there were no provisioning logs for debugging the server image, which made it difficult for our Operations Engineers to troubleshoot. Creating server images looked like this:
 
 ![Process](https://raw.githubusercontent.com/ehime/Deploy-Strategy/master/assets/process.jpg "Process")
+
+I am personally not happy with potential for errors here, so lets rethink this entire process using Packer.
+
+##### What is Packer?
+
+Packer is a tool for creating server images for multiple platforms. It is easy to use and automates the process of creating server images. It supports multiple provisioners, all built into Packer.
+
+##### Why Packer?
+
+In order to simplify the steps involved in creating a server image, we choose Hashicorp’s Packer. These were a few simple reasons why Packer was the obvious choice:
+
+ # Supports multiple platforms such as Amazon EC2, OpenStack, VMware and VirtualBox
+ # It’s easy to use and is mostly automated
+ # It supports Puppet Enterprise as a provisioner, and we at MHE LOVE Puppet!
+ # It’s written in Go and is created by the same guys that did Serf, Consul, and Vagrant (which are amazing)
