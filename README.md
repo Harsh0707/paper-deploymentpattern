@@ -45,3 +45,62 @@ We encountered two specific challengers with Packer we will need to overcome:
 #### The Implementation strategy
 
 The implementation of Packer will be a very simple one (compared to things I've been doing with Packer in the past that is). Packer needs a configuration file that has all the information needed to create a server image. We also used a variables file that has a combination of variables that the configuration file needs, along with custom variables for tagging the server image. Here’s an example Packer configuration file:
+
+    {
+      "variables": {
+        "ami_name": "",
+        "aws_access_key": "",
+        "aws_secret_key": "",
+        "user_name": "",
+        "test_ami_flag": "",
+        "aws_cert_path": "",
+        "aws_key_path": "",
+        "source_ami_id": "",
+        "aws_account_id": "",
+        "aws_region": "",
+        "ami_instance_type": "",
+        "ami_description": "",
+        "s3_bucket_name": "",
+        "product": "",
+        "costcenter": "",
+        "owner": "",
+        "division": ""
+      },
+      "builders": [{
+        "type": "amazon-instance",
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "account_id": "{{user `aws_account_id`}}",
+        "region": "{{user `aws_region`}}",
+        "source_ami": "{{user `source_ami_id`}}",
+        "instance_type": "{{user `ami_instance_type`}}",
+        "ssh_username": "ubuntu",
+        "ami_name": "{{isotime |clean_ami_name}} {{user `ami_name`}}",
+        "s3_bucket": "{{user `s3_bucket_name`}}",
+        "x509_cert_path": "{{user `aws_cert_path`}}",
+        "x509_key_path": "{{user `aws_key_path`}}",
+        "security_group_ids": [
+          "all",
+          "default"
+        ],
+        "tags": {
+          "Product": "{{user `product`}}",
+          "CostCenter": "{{user `costcenter`}}",
+          "Owner": "{{user `owner`}}",
+          "Division": "{{user `division`}}",
+
+          "author": "{{user `user_name`}}",
+          "test_ami": "{{user `test_ami_flag`}}",
+          "packer": "true",
+          },
+        "ami_description": "{{user `ami_description`}}",
+        "bundle_upload_command": "sudo -n ec2-upload-bundle -b {{.BucketName}} -m {{.ManifestPath}} -a {{.AccessKey}} -s {{.SecretKey}} -d {{.BundleDirectory}} --batch --retry"
+      }],
+      "provisioners": [{
+         "type": "puppet-server",
+         "options": "--test --pluginsync",
+         "facter": {
+           "server_role": "webserver"
+         }
+      }]
+    }
