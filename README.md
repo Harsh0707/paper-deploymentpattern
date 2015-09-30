@@ -41,3 +41,7 @@ We encountered two specific challengers with Packer we will need to overcome:
 
  * Testing the Packer-built server images
  * Automating the build and test process
+
+#### The Implementation strategy
+
+The implementation of Packer will be a very simple one (compared to things I've been doing with Packer in the past that is). Packer needs a configuration file that has all the information needed to create a server image. We also used a variables file that has a combination of variables that the configuration file needs, along with custom variables for tagging the server image. Here’s an example Packer configuration file:
