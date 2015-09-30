@@ -142,3 +142,13 @@ The builders section defines the builder that will be used to create the server 
  * __amazon-ebs__: Create EBS-backed AMIs by launching a source AMI and re-packaging it into a new AMI after provisioning
  * __amazon-instance__: Create instance-store AMIs by launching and provisioning a source instance, then rebundling it and uploading it to S3
  * __amazon-chroot__: Create EBS-backed AMIs from an existing EC2 instance by mounting the root device and using a Chroot environment to provision that device
+
+ We mostly use the “amazon-instance” builder, as most of our EC2 instances are instance-store backed. The provisioner section defines the provisioner that will be used to provision the server. Packer supports a variety of provisioners like:
+
+ * Ansible
+ * Chef Client
+  * Chef Solo
+  * Puppet Masterless
+  * Puppet Server
+ * Salt
+ * Custom Provisioner
