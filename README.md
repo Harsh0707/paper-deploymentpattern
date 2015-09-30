@@ -154,3 +154,27 @@ We mostly use the “amazon-instance” builder, as most of our EC2 instances ar
  * Custom Provisioner
 
 Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Server provisioner is the logical choice for us. While using the Puppet Server provisioner I believe Puppet pattern for `roles` and `profiles` can be easily integrated with Packer. Most of our Puppet Modules are shared across various projects, which makes it interesting to work with - these shared modules will be included in the Puppet Server provisioner configuration on registration with the master.
+
+#### Provisioning Logs
+
+During the provisioning process, the logs that we are generating with Puppet can be stored on the server image for debugging purposes. This is done by enabling Puppets logging capabilities by customizing `/etc/default/puppet`. By adding the following:
+
+    # Startup options
+    DAEMON_OPTS="--logdest /var/log/puppet/puppet.log"
+
+`/etc/default/puppet` is then sourced by `/etc/init.d/puppet`, so the options you added here will be executed when puppet service is started.
+
+We can even go as far as adding in custom log rotation:
+
+    /var/log/puppet/*log {
+      missingok
+      sharedscripts
+      create 0644 puppet puppet
+      compress
+      rotate 4
+
+      postrotate
+        pkill -USR2 -u puppet -f 'puppet master' || true
+        [ -e /etc/init.d/puppet ] && /etc/init.d/puppet reload > /dev/null 2>&1 || true
+      endscript
+    }
