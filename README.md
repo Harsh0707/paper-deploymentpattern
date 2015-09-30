@@ -31,7 +31,13 @@ Packer is a tool for creating server images for multiple platforms. It is easy t
 
 In order to simplify the steps involved in creating a server image, we choose Hashicorp’s Packer. These were a few simple reasons why Packer was the obvious choice:
 
- # Supports multiple platforms such as Amazon EC2, OpenStack, VMware and VirtualBox
- # It’s easy to use and is mostly automated
- # It supports Puppet Enterprise as a provisioner, and we at MHE LOVE Puppet!
- # It’s written in Go and is created by the same guys that did Serf, Consul, and Vagrant (which are amazing)
+ * Supports multiple platforms such as Amazon EC2, OpenStack, VMware and VirtualBox
+ * It’s easy to use and is mostly automated
+ * It supports Puppet Enterprise as a provisioner, and we at MHE LOVE Puppet!
+ * It’s written in Go and is created by the same guys that did Serf, Consul, and Vagrant (which are amazing)
+
+#### Challenges with Packer
+We encountered two specific challengers with Packer we will need to overcome:
+
+ * Testing the Packer-built server images
+ * Automating the build and test process
