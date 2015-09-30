@@ -178,3 +178,13 @@ We can even go as far as adding in custom log rotation:
         [ -e /etc/init.d/puppet ] && /etc/init.d/puppet reload > /dev/null 2>&1 || true
       endscript
     }
+
+#### Benefits of using Packer
+
+There are various benefits of using Packer in terms of performance, automation, and security:
+
+ * Packer spins up an EC2 instance, creates temporary security groups for the instance, creates temporary keys, provisions the instance, creates an AMI, and terminates the instances - and it’s all completely automated
+ * Packer uploads all the Ansible playbooks and associated variables to the remote server, and then runs the provisioner locally on that machine. It has a default staging directory (/tmp/packer-provisioner-ansible-local/) that it creates on the remote server, and this is the location where it stores all the playbooks, variables, and roles. Running the playbooks locally on the instance is much faster than running them remotely.
+ * Packer implements parallelization of all the processes that it implements
+ * With Packer we supply Amazon’s API keys locally. The temporary keys that are created when the instance is spun up are removed after the instance is provisioned, for increased security.
+ * Testing Before Creating Server Images
