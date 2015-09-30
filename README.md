@@ -190,3 +190,43 @@ There are various benefits of using Packer in terms of performance, automation, 
  * Testing Before Creating Server Images
 
 Packer helped solve the problem of automating server image creation. We still thought there was room for improvements in terms of testing whether the instance was provisioned correctly, so we began using ServerSpec.
+
+#### What is ServerSpec?
+
+ServerSpec offers RSpec tests for your provisioned server. RSpec is commonly used as a testing tool in Ruby programming, made to easily test your servers by executing few commands locally. We can then write some simple tests using ServerSpec that would help indicate whether the instance was ready to be imaged:
+
+ * Testing services that make up our web server such as Nginx, PHP-FPM, various routers, etc
+ * Testing common monitoring and alerting services such as Sensu and DynaTrace
+ * Testing ports that various services run on
+
+#### Integrating ServerSpec with Packer
+
+In order for us to decide whether the server image is created or not, ServerSpec can be integrated with Packer right after the provisioning is complete. This is done by using Packers `shell` and `file` provisioners. First, we will need to create a temporary directory on the server and copy the ServerSpec tests to be run based on server type, then run a simple bash script that kick off the ServerSpec tests locally on that machine.
+
+The Packer configuration file had the following defined in order to run ServerSpec tests:
+
+    {
+        "type": "shell",
+        "inline": [
+            "mkdir /tmp/tests"
+        ]
+    }, {
+        "type": "file",
+        "source": "serverspec_tests/server-type/",
+        "destination": "/tmp/tests"
+    }, {
+        "type": "shell",
+        "script": "scripts/serverspec.sh"
+    }
+
+If the tests pass, then Packer will go ahead and image the server then create an AMI. However, if a tests fail, Packer will receive an error code from the shell provisioner that would terminate the image creation process and the instance. This is the bash script we used for installing and running the ServerSpec tests:
+
+    #!/bin/bash
+    # serverspec.sh - RSpec tests for servers
+    echo "Installing serverspec"
+    sudo gem install serverspec
+    cd /tmp/tests
+    echo "Running integration tests for ami"
+    /opt/sensu/embedded/bin/rake spec
+
+This process allowed us to be confident about the images that were being built using Packer. 
