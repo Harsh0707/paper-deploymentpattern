@@ -139,6 +139,6 @@ The variable file can be defined in a simple json format:
 
 The builders section defines the builder that will be used to create the server image. Since most of our servers are on AWS, we use the “Amazon EC2 (AMI)” builder. Others include:
 
- * _amazon-ebs_: Create EBS-backed AMIs by launching a source AMI and re-packaging it into a new AMI after provisioning
- * _amazon-instance_: Create instance-store AMIs by launching and provisioning a source instance, then rebundling it and uploading it to S3
- * _amazon-chroot_: Create EBS-backed AMIs from an existing EC2 instance by mounting the root device and using a Chroot environment to provision that device
+ * __amazon-ebs__: Create EBS-backed AMIs by launching a source AMI and re-packaging it into a new AMI after provisioning
+ * __amazon-instance__: Create instance-store AMIs by launching and provisioning a source instance, then rebundling it and uploading it to S3
+ * __amazon-chroot__: Create EBS-backed AMIs from an existing EC2 instance by mounting the root device and using a Chroot environment to provision that device
