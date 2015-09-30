@@ -91,7 +91,7 @@ The implementation of Packer will be a very simple one (compared to things I've 
           "author": "{{user `user_name`}}",
           "test_ami": "{{user `test_ami_flag`}}",
           "packer": "true",
-          },
+        },
         "ami_description": "{{user `ami_description`}}",
         "bundle_upload_command": "sudo -n ec2-upload-bundle -b {{.BucketName}} -m {{.ManifestPath}} -a {{.AccessKey}} -s {{.SecretKey}} -d {{.BundleDirectory}} --batch --retry"
       }],
