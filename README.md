@@ -189,4 +189,4 @@ There are various benefits of using Packer in terms of performance, automation, 
  * With Packer we supply Amazon’s API keys locally. The temporary keys that are created when the instance is spun up are removed after the instance is provisioned, for increased security.
  * Testing Before Creating Server Images
 
- Packer helped solve the problem of automating server image creation. We still thought there was room for improvements in terms of testing whether the instance was provisioned correctly, so we began using ServerSpec.
+Packer helped solve the problem of automating server image creation. We still thought there was room for improvements in terms of testing whether the instance was provisioned correctly, so we began using ServerSpec.
