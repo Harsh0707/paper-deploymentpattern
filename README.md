@@ -147,11 +147,9 @@ We mostly use the “amazon-instance” builder, as most of our EC2 instances ar
 
  * Ansible
  * Chef Client
-
-  * Chef Solo
-
-  * Puppet Masterless
-  * Puppet Server
+ * Chef Solo
+ * Puppet Masterless
+ * Puppet Server
  * Salt
  * Custom Provisioner
 
