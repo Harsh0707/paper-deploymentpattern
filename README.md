@@ -103,3 +103,26 @@ The implementation of Packer will be a very simple one (compared to things I've 
          }
       }]
     }
+
+The configuration file can be divided into a few sections:
+
+ * Variables
+ * Builders
+ * Provisioners
+
+The variables section has all the variables that are used in the configuration file. These variables can be passed at runtime or can be predefined in a variable file. For example, variables can be passed at runtime in the Packer CLI command:
+
+    packer build \
+        -var "aws_access_key="    \
+        -var "aws_secret_key="    \
+        -var "user_name=`whoami`" \
+        -var "aws_cert_path="     \
+        -var "aws_key_path="      \
+        -var "s3_bucket_name="    \
+        -var "test_ami_flag="     \
+        -var "source_ami_id="     \
+        -var "product="           \
+        -var "costcenter="        \
+        -var "owner="             \
+        -var "division="          \
+    config.json
