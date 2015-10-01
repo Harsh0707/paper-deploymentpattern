@@ -229,4 +229,17 @@ If the tests pass, then Packer will go ahead and image the server then create an
     echo "Running integration tests for ami"
     /opt/sensu/embedded/bin/rake spec
 
-This process allowed us to be confident about the images that were being built using Packer. 
+This process allowed us to be confident about the images that were being built using Packer.
+
+#### Automation Using Jenkins
+
+Jenkins is used to automate the process of creating and testing images. A Jenkins job can be parameterized to take inputs such as project name, username, Amazon’s API keys, test flags,  etc., which will allow our engineers to build project specific image rapidly without installing Packer and its CLI tools. Jenkins will take care of the AMI tagging, CLI parameters for Packer and notifications to the our team about the status of the Job:
+
+![Pipeline](https://raw.githubusercontent.com/ehime/Deploy-Strategy/master/assets/automation-pipeline.jpg "Pipeline")
+
+#### In the Pipeline
+There’s still room for improvement with regards to image creation. Still in the pipeline are:
+
+ * Automatically triggering the Jenkins job on git commit
+ * Creating an AMI management tool for creating and deleting server images
+ * Running continuous sanity checks on our EC2 servers to identify any drift in configuration
