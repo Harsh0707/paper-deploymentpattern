@@ -36,11 +36,13 @@ In order to simplify the steps involved in creating a server image, we choose Ha
  * It supports Puppet Enterprise as a provisioner, and we at MHE LOVE Puppet!
  * It’s written in Go and is created by the same guys that did Serf, Consul, and Vagrant (which are amazing)
 
+
 #### Challenges with Packer
 We encountered two specific challengers with Packer we will need to overcome:
 
  * Testing the Packer-built server images
  * Automating the build and test process
+
 
 #### The Implementation strategy
 
@@ -161,6 +163,7 @@ We mostly use the “amazon-instance” builder, as most of our EC2 instances ar
 
 Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Server provisioner is the logical choice for us. While using the Puppet Server provisioner I believe Puppet pattern for `roles` and `profiles` can be easily integrated with Packer. Most of our Puppet Modules are shared across various projects, which makes it interesting to work with - these shared modules will be included in the Puppet Server provisioner configuration on registration with the master.
 
+
 #### Provisioning Logs
 
 During the provisioning process, the logs that we are generating with Puppet can be stored on the server image for debugging purposes. This is done by enabling Puppets logging capabilities by customizing `/etc/default/puppet`. By adding the following:
@@ -189,6 +192,7 @@ We can even go as far as adding in custom log rotation:
     }
 ```
 
+
 #### Benefits of using Packer
 
 There are various benefits of using Packer in terms of performance, automation, and security:
@@ -201,6 +205,7 @@ There are various benefits of using Packer in terms of performance, automation, 
 
 Packer helped solve the problem of automating server image creation. We still thought there was room for improvements in terms of testing whether the instance was provisioned correctly, so we began using ServerSpec.
 
+
 #### What is ServerSpec?
 
 ServerSpec offers RSpec tests for your provisioned server. RSpec is commonly used as a testing tool in Ruby programming, made to easily test your servers by executing few commands locally. We can then write some simple tests using ServerSpec that would help indicate whether the instance was ready to be imaged:
@@ -208,6 +213,7 @@ ServerSpec offers RSpec tests for your provisioned server. RSpec is commonly use
  * Testing services that make up our web server such as Nginx, PHP-FPM, various routers, etc
  * Testing common monitoring and alerting services such as Sensu and DynaTrace
  * Testing ports that various services run on
+
 
 #### Integrating ServerSpec with Packer
 
@@ -245,11 +251,13 @@ If the tests pass, then Packer will go ahead and image the server then create an
 
 This process allowed us to be confident about the images that were being built using Packer.
 
+
 #### Automation Using Jenkins
 
 Jenkins is used to automate the process of creating and testing images. A Jenkins job can be parameterized to take inputs such as project name, username, Amazon’s API keys, test flags,  etc., which will allow our engineers to build project specific image rapidly without installing Packer and its CLI tools. Jenkins will take care of the AMI tagging, CLI parameters for Packer and notifications to the our team about the status of the Job:
 
 ![Pipeline](https://raw.githubusercontent.com/ehime/Deploy-Strategy/master/assets/automation-pipeline.jpg "Pipeline")
+
 
 #### In the Pipeline
 There’s still room for improvement with regards to image creation. Still in the pipeline are:
