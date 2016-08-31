@@ -174,7 +174,7 @@ During the provisioning process, the logs that we are generating with Puppet can
 
 We can even go as far as adding in custom log rotation:
 
-```puppet
+```bash
     /var/log/puppet/*log {
       missingok
       sharedscripts
@@ -215,6 +215,7 @@ In order for us to decide whether the server image is created or not, ServerSpec
 
 The Packer configuration file had the following defined in order to run ServerSpec tests:
 
+```json
     {
         "type": "shell",
         "inline": [
@@ -228,9 +229,11 @@ The Packer configuration file had the following defined in order to run ServerSp
         "type": "shell",
         "script": "scripts/serverspec.sh"
     }
+```
 
 If the tests pass, then Packer will go ahead and image the server then create an AMI. However, if a tests fail, Packer will receive an error code from the shell provisioner that would terminate the image creation process and the instance. This is the bash script we used for installing and running the ServerSpec tests:
 
+```bash
     #!/bin/bash
     # serverspec.sh - RSpec tests for servers
     echo "Installing serverspec"
@@ -238,6 +241,7 @@ If the tests pass, then Packer will go ahead and image the server then create an
     cd /tmp/tests
     echo "Running integration tests for ami"
     /opt/sensu/embedded/bin/rake spec
+```
 
 This process allowed us to be confident about the images that were being built using Packer.
 
