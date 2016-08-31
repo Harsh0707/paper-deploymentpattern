@@ -46,6 +46,7 @@ We encountered two specific challengers with Packer we will need to overcome:
 
 The implementation of Packer will be a very simple one (compared to things I've been doing with Packer in the past that is). Packer needs a configuration file that has all the information needed to create a server image. We also used a variables file that has a combination of variables that the configuration file needs, along with custom variables for tagging the server image. Here’s an example Packer configuration file:
 
+```json
     {
       "variables": {
         "ami_name": "",
@@ -103,6 +104,7 @@ The implementation of Packer will be a very simple one (compared to things I've 
          }
       }]
     }
+```
 
 The configuration file can be divided into a few sections:
 
@@ -112,6 +114,7 @@ The configuration file can be divided into a few sections:
 
 The variables section has all the variables that are used in the configuration file. These variables can be passed at runtime or can be predefined in a variable file. For example, variables can be passed at runtime in the Packer CLI command:
 
+```bash
     packer build \
         -var "aws_access_key="    \
         -var "aws_secret_key="    \
@@ -126,6 +129,7 @@ The variables section has all the variables that are used in the configuration f
         -var "owner="             \
         -var "division="          \
     config.json
+```
 
 The variable file can be defined in a simple json format:
 
