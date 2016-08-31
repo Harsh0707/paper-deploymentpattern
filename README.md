@@ -133,6 +133,7 @@ The variables section has all the variables that are used in the configuration f
 
 The variable file can be defined in a simple json format:
 
+```json
     {
         "ami_name": "",
         "aws_account_id": "",
@@ -140,6 +141,7 @@ The variable file can be defined in a simple json format:
         "ami_instance_type": "",
         "ami_description": "",
     }
+```
 
 The builders section defines the builder that will be used to create the server image. Since most of our servers are on AWS, we use the “Amazon EC2 (AMI)” builder. Others include:
 
@@ -163,13 +165,16 @@ Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Serv
 
 During the provisioning process, the logs that we are generating with Puppet can be stored on the server image for debugging purposes. This is done by enabling Puppets logging capabilities by customizing `/etc/default/puppet`. By adding the following:
 
+```bash
     # Startup options
     DAEMON_OPTS="--logdest /var/log/puppet/puppet.log"
+```
 
 `/etc/default/puppet` is then sourced by `/etc/init.d/puppet`, so the options you added here will be executed when puppet service is started.
 
 We can even go as far as adding in custom log rotation:
 
+```puppet
     /var/log/puppet/*log {
       missingok
       sharedscripts
@@ -182,6 +187,7 @@ We can even go as far as adding in custom log rotation:
         [ -e /etc/init.d/puppet ] && /etc/init.d/puppet reload > /dev/null 2>&1 || true
       endscript
     }
+```
 
 #### Benefits of using Packer
 
