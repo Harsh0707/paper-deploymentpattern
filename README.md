@@ -1,6 +1,6 @@
 #### Thoughts on a continuous deployment strategy
 
-Sometimes a wonderful tool comes along that makes kludgy processes radically better. [Packer](https://packer.io/)  and [ServerSpec](http://serverspec.org/) are great examples. The 1-2 punch of Packer + ServerSpec combined with the automation abilities of [Jenkins](https://jenkins-ci.org/) can make a significant impact on our automated server image creation. This combination has the possibilities of reducing our time-to-deploy, taking our visibility from ‘translucent’ to ‘transparent’, improved our traceability, and generally made our Ops Engineers much, much happier. Without further a due, here is the proposal.
+Sometimes a wonderful tool comes along that makes kludgy processes radically better. [Packer](https://packer.io/)  and [ServerSpec](http://serverspec.org/) are great examples. The 1-2 punch of Packer + ServerSpec combined with the automation abilities of [Jenkins](https://jenkins-ci.org/) can make a significant impact on our automated server image creation. This combination has the possibilities of reducing our time-to-deploy, taking our visibility from *translucent* to *transparent*, improved our traceability, and generally made our Ops Engineers much, much happier. Without further a due, here is the proposal.
 
 ![Packer + ServerSpec + Jenkins](https://raw.githubusercontent.com/ehime/Deploy-Strategy/master/assets/packer-serverspec-jenkins.jpg "Packer + ServerSpec + Jenkins")
 
@@ -25,7 +25,7 @@ I am personally not happy with potential for errors here, so lets rethink this e
 
 ##### What is Packer?
 
-Packer is a tool for creating server images for multiple platforms. It is easy to use and automates the process of creating server images. It supports multiple provisioners, all built into Packer.
+[Packer](https://www.packer.io/intro/) is a tool for creating server images for multiple platforms. It is easy to use and automates the process of creating server images. It supports multiple provisioners, all built into Packer.
 
 ##### Why Packer?
 
@@ -161,7 +161,7 @@ We mostly use the “amazon-instance” builder, as most of our EC2 instances ar
  * Salt
  * Custom Provisioner
 
-Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Server provisioner is the logical choice for us. While using the Puppet Server provisioner I believe Puppet pattern for `roles` and `profiles` can be easily integrated with Packer. Most of our Puppet Modules are shared across various projects, which makes it interesting to work with - these shared modules will be included in the Puppet Server provisioner configuration on registration with the master.
+Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Server provisioner is the logical choice for us. While using the Puppet Server provisioner I believe Puppet pattern for **roles** and **profiles** can be easily integrated with Packer. Most of our Puppet Modules are shared across various projects, which makes it interesting to work with - these shared modules will be included in the Puppet Server provisioner configuration on registration with the master.
 
 
 #### Provisioning Logs
