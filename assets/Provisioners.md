@@ -1,0 +1,16 @@
+##### Currently supported Provisioners [//]: # "List valid as of: 2016-08-31 @ 17:23:23 ~jd"
+
+ * [Remote Shell]()
+ * [Local Shell]()
+ * [File Uploads]()
+ * [PowerShell]()
+ * [Windows Shell]()
+ * [Ansible Local]()
+ * [Ansible Remote]()
+ * [Chef Client]()
+ * [Chef Solo]()
+ * [Puppet Masterless]()
+ * [Puppet Server]()
+ * [Salt]()
+ * [Windows Restart]()
+ * [Custom]()
