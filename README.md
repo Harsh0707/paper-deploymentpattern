@@ -169,8 +169,8 @@ Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Serv
 During the provisioning process, the logs that we are generating with Puppet can be stored on the server image for debugging purposes. This is done by enabling Puppets logging capabilities by customizing `/etc/default/puppet`. By adding the following:
 
 ```bash
-    # Startup options
-    DAEMON_OPTS="--logdest /var/log/puppet/puppet.log"
+  # Startup options
+  DAEMON_OPTS="--logdest /var/log/puppet/puppet.log"
 ```
 
 `/etc/default/puppet` is then sourced by `/etc/init.d/puppet`, so the options you added here will be executed when puppet service is started.
