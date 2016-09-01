@@ -153,13 +153,16 @@ The builders section defines the builder that will be used to create the server 
 
 We mostly use the “amazon-instance” builder, as most of our EC2 instances are instance-store backed. The provisioner section defines the provisioner that will be used to provision the server. Packer supports a variety of provisioners like:
 
- * Ansible
- * Chef Client
- * Chef Solo
- * Puppet Masterless
- * Puppet Server
- * Salt
- * Custom Provisioner
+* [Ansible](https://www.ansible.com/how-ansible-works)
+* [Puppet Server](https://puppet.com/product/how-puppet-works)
+* [Puppet Masterless](https://docs.puppet.com/references/glossary.html#masterless)
+* [Chef Client](https://docs.chef.io/chef_client.html)
+* [Chef Solo](https://docs.chef.io/chef_solo.html)
+* [SaltStack](https://saltstack.com/saltstack-enterprise-cloudops/)
+* [Custom Provisioner](https://www.packer.io/docs/extend/provisioner.html)
+
+<sub>List of all [Provisioners here]()</sub>
+
 
 Since we heavily use Puppet for provisioning our servers, Packer’s Puppet Server provisioner is the logical choice for us. While using the Puppet Server provisioner I believe Puppet pattern for **roles** and **profiles** can be easily integrated with Packer. Most of our Puppet Modules are shared across various projects, which makes it interesting to work with - these shared modules will be included in the Puppet Server provisioner configuration on registration with the master.
 
