@@ -1,4 +1,4 @@
-##### Currently supported Provisioners [//]: # "List valid as of: 2016-08-31 @ 17:23:23 ~jd"
+##### Currently supported Provisioners [](List valid as of: 2016-08-31 @ 17:23:23 ~jd)
 
  * [Remote Shell]()
  * [Local Shell]()
